@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Optimizer — MPT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div>
+        <h1>Portfolio Optimizer</h1>
+        <p class="header-sub">Modern Portfolio Theory · Markowitz (1952)</p>
+      </div>
+      <div id="m-cards" class="metric-cards">
+        <div class="m-card">
+          <div class="m-lbl">Expected return</div>
+          <div class="m-val" id="m-ret">—</div>
+          <div class="m-sub">annualized</div>
+        </div>
+        <div class="m-card">
+          <div class="m-lbl">Volatility (σ)</div>
+          <div class="m-val" id="m-vol">—</div>
+          <div class="m-sub">annualized std dev</div>
+        </div>
+        <div class="m-card">
+          <div class="m-lbl">Sharpe ratio</div>
+          <div class="m-val" id="m-sharpe">—</div>
+          <div class="m-sub">r<sub>f</sub> = 5%</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="charts-row">
+
+      <section class="panel" style="flex: 3;">
+        <div class="sec-lbl">Efficient frontier — 3,000 Monte Carlo portfolios</div>
+        <div style="position:relative; height:320px;">
+          <canvas id="frontierChart"
+            role="img"
+            aria-label="Scatter plot showing portfolio risk vs return with efficient frontier, max Sharpe, min variance, and current portfolio highlighted">
+            Efficient frontier scatter plot.
+          </canvas>
+        </div>
+        <div class="legend">
+          <span class="leg-item"><span class="dot" style="background:rgba(136,135,128,0.5);"></span>Random portfolios</span>
+          <span class="leg-item"><span class="dot" style="background:#EF9F27;"></span>Current</span>
+          <span class="leg-item"><span class="dot dot-tri" style="background:#1D9E75;"></span>Max Sharpe</span>
+          <span class="leg-item"><span class="dot dot-sq" style="background:#378ADD;"></span>Min variance</span>
+        </div>
+      </section>
+
+      <section class="panel" style="flex: 2;">
+        <div class="sec-lbl">Weight allocation</div>
+        <div style="position:relative; height:320px;">
+          <canvas id="allocChart"
+            role="img"
+            aria-label="Horizontal bar chart of current portfolio weight allocation by asset class">
+            Weight allocation chart.
+          </canvas>
+        </div>
+      </section>
+
+    </div>
+
+    <section class="panel sliders-panel">
+      <div class="sec-lbl">Adjust weights</div>
+      <div id="sliders-container" class="sliders-grid"></div>
+      <div class="slider-actions">
+        <span class="total-display">Total: <strong id="total-pct">100.0</strong>%</span>
+        <div class="actions-right">
+          <button class="opt-btn" id="btn-eq">Equal weight</button>
+          <button class="opt-btn" id="btn-norm">Normalize</button>
+          <button class="opt-btn" id="btn-minv">Min variance</button>
+          <button class="opt-btn primary" id="btn-maxs">↑ Max Sharpe</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="footnote">
+      Based on Modern Portfolio Theory (Markowitz, 1952). Returns and correlations are illustrative estimates.
+      Max Sharpe and Min Variance portfolios are identified via Monte Carlo simulation across 3,000 random weight combinations.
+      Not financial advice.
+    </p>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="optimizer.js"></script>
+</body>
+</html>
